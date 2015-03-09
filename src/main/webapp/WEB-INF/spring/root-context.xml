@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd ">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<!-- contextProperties사용 선언부에서 선언 -->
+    <util:properties id="contextProperties" location="classpath:context.properties"/>
+       
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="#{contextProperties.driver}"/>
+        <property name="url" value="#{contextProperties.url}"/>
+        <property name="username" value="#{contextProperties.username}"/>
+        <property name="password" value="#{contextProperties.password}"/>
+    </bean>           
+
+     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+     	<constructor-arg index="0" ref="sqlSessionFactory" />
+     </bean>
+
+     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:mybatis/mappers/*.xml" />
+     </bean>
+		
+		
+		
+		
+</beans>

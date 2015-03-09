@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="home">
+
+    <select id="selectSports" parameterType="Map" resultType="HashMap" >
+        SELECT * FROM SPORTS
+    </select>
+
+    <select id="insertSports" parameterType="Map" resultType="HashMap" >
+        insert into SPORTS(
+        	id, sports1, sports2, sports3, sports4
+        )value(
+        	#{id}, #{sports1}, #{sports2}, #{sports3}, #{sports4}
+        )
+    </select>
+    
+    <select id="updateSports" parameterType="Map" resultType="HashMap" >
+        update SPORTS set sports1=#{sports1}, sports2=#{sports2}, sports3=#{sports3}, sports4=#{sports4} where id=#{id}
+    </select>
+    
+    <select id="deleteSports" parameterType="Map" resultType="HashMap" >
+        delete from SPORTS where id=#{id}
+    </select>
+    
+</mapper>
